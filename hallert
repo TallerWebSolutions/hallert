@@ -1,0 +1,47 @@
+#!/usr/bin/python
+
+import sys, getopt
+
+def main(argv):
+   token = ''
+   hallert_message = ''
+   icon_url = ''
+   try:
+      opts, args = getopt.getopt(argv,"ht:m:i:s:",["token=","hallert_message=","icon_url=","signature="])
+   except getopt.GetoptError:
+      print sys.argv[0],'-t <token> -m <hallert_message> -i <icon_url> -u <signature>'
+      sys.exit(2)
+   for opt, arg in opts:
+      if opt == '-h':
+         print sys.argv[0],'-t <token> -m <hallert_message> -i <icon_url> -s <signature>'
+         sys.exit()
+      elif opt in ("-t", "--token"):
+         token = arg
+      elif opt in ("-m", "--hallert_message"):
+         hallert_message = arg
+      elif opt in ("-i", "--icon_url"):
+         icon_url = arg
+      elif opt in ("-s", "--signature"):
+         signature = arg
+
+   if (token):
+      if (hallert_message):
+        from python_hall import Hall;
+        h = Hall(token);
+        if (icon_url):
+          h.add_image(icon_url)
+        else:
+          h.add_image('http://toetec.com.br/sites/default/files/ico-5.jpg')
+
+        if (signature):
+          h.send(title=signature, message=hallert_message)
+        else:
+          h.send(title='Hallert', message=hallert_message)
+
+      else:
+        print 'hallert_message is: UNDEFINED'
+   else:
+     print 'Token is: UNDEFINED'
+
+if __name__ == "__main__":
+   main(sys.argv[1:])
