@@ -6,6 +6,7 @@ def main(argv):
    token = ''
    hallert_message = ''
    icon_url = ''
+   signature = ''
    try:
       opts, args = getopt.getopt(argv,"ht:m:i:s:",["token=","hallert_message=","icon_url=","signature="])
    except getopt.GetoptError:
